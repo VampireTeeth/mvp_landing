@@ -27,12 +27,6 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
-if DEBUG:
-  import mimetypes
-  if mimetypes.types_map['.css']:
-    mimetypes.types_map['.css'] = None
-    mimetypes.add_type('text/css', '.css', True)
-
 
 # Application definition
 
@@ -83,14 +77,24 @@ USE_L10N = True
 
 USE_TZ = True
 
-PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
 STATIC_URL = '/static/'
 
 # Templates
 
 TEMPLATE_DIRS = (
-  os.path.join(os.path.dirname(BASE_DIR), 'static', 'templates'),
+  os.path.join(BASE_DIR, 'static', 'templates'),
 )
+
+if DEBUG:
+  import mimetypes
+  if mimetypes.types_map['.css']:
+    mimetypes.types_map['.css'] = None
+    mimetypes.add_type('text/css', '.css', True)
+  STATIC_ROOT = os.path.join(BASE_DIR, 'static', 'static-only')
+  MEDIA_URL = '/media/'
+  MEDIA_ROOT = os.path.join(BASE_DIR, 'static', 'media')
+  STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static', 'static'),
+  )

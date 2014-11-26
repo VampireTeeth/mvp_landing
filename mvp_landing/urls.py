@@ -10,6 +10,8 @@ urlpatterns = patterns('',
   # url(r'^$', 'mvp_landing.views.home', name='home'),
   # url(r'^blog/', include('blog.urls')),
   url(r'^$', 'signups.views.home', name='home'),
+  url(r'^thankyou/$', 'signups.views.thankyou', name='thankyou'),
+  url(r'^aboutus/$', 'signups.views.aboutus', name='aboutus'),
   url(r'^admin/', include(admin.site.urls)),
 )
 

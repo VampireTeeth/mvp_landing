@@ -1,19 +1,15 @@
+
 from django.shortcuts import render, render_to_response, RequestContext, HttpResponseRedirect
+from django.conf import settings
+from django.core.mail import send_mail
+from django.contrib import messages
 
 from .forms import SignUpForm
 
-from django.contrib import messages
 # Create your views here.
 
 def home(request):
 
-  form = SignUpForm(request.POST or None)
-
-  if form.is_valid():
-    save_it = form.save(commit=False)
-    save_it.save()
-    messages.success(request, 'We will catch you later')
-    return HttpResponseRedirect('/thankyou/')
 
   return render_to_response('signup.html',
                             locals(),
@@ -21,6 +17,20 @@ def home(request):
   
 
 def thankyou(request):
+  form = SignUpForm(request.POST or None)
+
+  if form.is_valid():
+    save_it = form.save(commit=False)
+    save_it.save()
+    #send_mail(subject, message, from_email, to_list, fail_silently=True)
+    subject = 'Thank you for your pre-order from MVP landing'
+    message = 'Welcome to MVP Landing! We very much appreciate your business!'
+    from_email = settings.EMAIL_HOST_USER
+    to_list = [save_it.email, settings.EMAIL_HOST_USER]
+    send_mail(subject, message, from_email, to_list, fail_silently=True)
+    messages.success(request, 'Thank you for your pre-order')
+    return HttpResponseRedirect('/thankyou/')
+
   return render_to_response('thankyou.html',
                             locals(),
                             context_instance=RequestContext(request))

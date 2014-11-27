@@ -28,10 +28,26 @@
   <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
 </div>
 <div class="col-md-3">
-  <h1>Join Now</h1>
-  <form action="" method="post"> {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" class="btn btn-success btn-block"/>
+  <h1>Pre-Order</h1>
+  <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+    <input type="hidden" name="cmd" value="_s-xclick"/>
+    <input type="hidden" name="hosted_button_id" value="GZJ8ZTZMMDS3Q"/>
+    <input type="hidden" name="on0" value="Course"/>
+    Course
+    <select name="os0" class="form-control">
+      <option value="Basic">Basic $99.00 AUD</option>
+      <option value="Basic Plus">Basic Plus $149.00 AUD</option>
+      <option value="Premium">Premium $199.00 AUD</option>
+    </select> 
+    <br/>
+    <br/>
+    <input type="hidden" name="currency_code" value="AUD">
+    <input type="submit" class="btn btn-success btn-block" value="Buy Now"/>
+    <!--
+    <input type="image" src="https://www.paypalobjects.com/en_AU/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal — The safer, easier way to pay online.">
+    <img alt="" border="0" src="https://www.paypalobjects.com/en_AU/i/scr/pixel.gif" width="1" height="1">
+    -->
   </form>
+
 </div>
 {% endblock %}
